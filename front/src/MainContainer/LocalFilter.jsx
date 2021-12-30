@@ -16,6 +16,9 @@ const Ul = styled.ul`
     border-bottom: 1px solid #ddd;
     display: flex;
     justify-content:center;
+    li:nth-child(1) {
+        margin-left: 30px;
+    }
 `;
 
 const Li = styled.li`
@@ -27,20 +30,19 @@ const Li = styled.li`
 
 export default function Filter() {
     const local = ['전체', '서울', '경기', '인천', '대전', '충북', '충남', '대구/경산', '부산', '울산', '경남', '경북', '광주' , '전북', '강원', '제주', '전남'];
-    const listComponents = [];
-
-    (function() {
-        for(let i = 0; i < local.length; i++) {
-            listComponents.push(<Li key={`${i}`} style={i === 0 ? {marginLeft: '30px'} : null}>{local[i]}</Li>)
-        }
-    })()
 
     return(
         <div>
     <MainFilter>
         <MainMatchFilter>
             <Ul>
-                {listComponents}
+                {local.map((region, idx) => {
+                    return (
+                        <Li key={idx}>
+                            {local[i]}
+                        </Li>
+                    )
+                })}
             </Ul>
         </MainMatchFilter>
     </MainFilter>
