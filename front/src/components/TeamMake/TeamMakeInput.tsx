@@ -1,15 +1,15 @@
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { postTeamInfo } from "../../axios/axios";
-import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
-import Avatar from "@mui/material/Avatar";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { updateTeamAction } from "../../action/createAction";
-import { getTeamInfo } from "../../axios/axios";
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { postTeamInfo } from '../../axios/axios';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import Avatar from '@mui/material/Avatar';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { updateTeamAction } from '../../action/createAction';
+import { getTeamInfo } from '../../axios/axios';
 
 const Div = styled.div`
   width: 100vw;
@@ -38,9 +38,7 @@ const TeamInput = () => {
       const action = updateTeamAction(teamInfo);
       dispatch(action);
     } catch (err) {
-      console.log("팀 리스트를 갱신하는데 실패하였습니다.");
-      console.log(err.response);
-      console.log(err);
+      alert(err.response);
     }
   }
   const navigate = useNavigate();
@@ -53,14 +51,11 @@ const TeamInput = () => {
     };
     postTeamInfo(data)
       .then(() => {
-        console.log("팀 생성 완료");
         refreshTeamInfo();
-        navigate("/");
+        navigate('/');
       })
       .catch((err) => {
-        console.log("팀 생성 실패");
-        console.log(err.response);
-        console.error(err);
+        alert(err.response);
       });
   };
 
@@ -69,15 +64,15 @@ const TeamInput = () => {
       <Div2>
         <Box
           sx={{
-            display: "flex",
-            justifyContents: "center",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "450px",
-            paddingTop: "20px",
+            display: 'flex',
+            justifyContents: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '450px',
+            paddingTop: '20px',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "black", width: 50, height: 50 }}>
+          <Avatar sx={{ m: 1, bgcolor: 'black', width: 50, height: 50 }}>
             <SportsBasketballIcon sx={{ width: 34, height: 34 }} />
           </Avatar>
           <Typography component="h1" variant="h1">
@@ -86,12 +81,7 @@ const TeamInput = () => {
           <Typography component="h3" variant="h5">
             팀에 다른 사람들을 초대할 수 있습니다.
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1, width: "450px" }}
-          >
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '450px' }}>
             <TextField
               id="teamName"
               label="팀 이름(1글자 ~ 8글자)"
@@ -99,8 +89,8 @@ const TeamInput = () => {
               fullWidth
               name="teamName"
               sx={{
-                marginTop: "30px",
-                display: "block",
+                marginTop: '30px',
+                display: 'block',
               }}
             />
             <TextField
@@ -112,17 +102,12 @@ const TeamInput = () => {
               multiline
               rows={4}
               sx={{
-                marginTop: "30px",
-                display: "block",
+                marginTop: '30px',
+                display: 'block',
               }}
             />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               완료
             </Button>
           </Box>

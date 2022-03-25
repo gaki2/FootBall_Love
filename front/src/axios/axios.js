@@ -1,50 +1,30 @@
 import axios from 'axios';
-import { convertToJsonData } from '../utils/util';
 
-export function sendJoinData(data) {
-  const jsonData = convertToJsonData(data);
-  return axios({
-    method: 'post',
-    headers: {
-      'content-type': 'application/json; charset=UTF-8',
-    },
-    url: `https://flove.fbl.p-e.kr/api/member`,
-    data: jsonData,
-  });
+const fetch = axios.create({
+  baseURL: process.env.REACT_APP_BASEURL,
+  headers: {
+    'content-type': 'application/json; charset=UTF-8',
+  },
+});
+
+export function Join(data) {
+  return fetch.post('/api/member', data);
 }
 
-export function logoutRequest() {
-  return axios({
-    method: 'post',
-    url: `https://flove.fbl.p-e.kr/api/member/logout_jwt`,
-  });
+export function Logout() {
+  return fetch.post('/api/member/logout_jwt');
 }
 
-export function sendLoginData(data) {
-  const jsonData = convertToJsonData(data);
-  return axios({
-    method: 'post',
-    headers: {
-      'content-type': 'application/json',
-    },
-    url: `https://flove.fbl.p-e.kr/api/member/login_jwt/${data.id}`,
-    data: jsonData,
-  });
+export function Login(data) {
+  fetch.post(`/api/member/login_jwt/${data.id}`, data);
 }
 
-export function getUserInfo() {
-  return axios({
-    method: 'get',
-    url: 'https://flove.fbl.p-e.kr/api/member/loginInfo',
-  });
+export function GetUser() {
+  return fetch.get('/api/member/loginInfo');
 }
 
-export function postUserImg(imgFile) {
-  return axios({
-    method: 'post',
-    url: 'https://flove.fbl.p-e.kr/api/profile_img',
-    data: imgFile,
-  });
+export function UploadImg(imgFile) {
+  return fetch.post('/api/profile_img', imgFile);
 }
 
 export function postUserPost(fd) {

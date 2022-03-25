@@ -1,29 +1,7 @@
 import produce from 'immer';
+import { InitialUser } from '../types/store';
 
-type User = {
-  createdDate: string;
-  lastModifiedDate: string;
-  createdBy: null | number;
-  lastModifiedBy: null | number;
-  number: null | number;
-  id: string;
-  nickname: string;
-  name: string;
-  email: string;
-  birth: string;
-  address?: {
-    city: string;
-    street: string;
-    zipcode: string;
-  };
-  phone: string;
-  profileUri: null | string;
-  type: string;
-  company: null | string;
-  teams?: any;
-};
-
-const initialUser: { isLogin: boolean; user: User } = {
+const initUserInfo: InitialUser = {
   isLogin: document.cookie.includes('accessToken') ? true : false,
   user: {
     createdDate: '',
@@ -51,34 +29,31 @@ const initialUser: { isLogin: boolean; user: User } = {
 
 function userReducer(state, action) {
   if (state === undefined) {
-    return initialUser;
+    return initUserInfo;
   }
 
   switch (action.type) {
-    case 'UPDATE_USERINFO':
-      return {
-        isLogin: true,
-        user: { ...action.update },
-      };
-
-    case 'UPDATE_PROFILE_PHOTO_URI':
+    case 'UPDATE_USER':
       return produce(state, (draft) => {
-        const newUri = action.uri;
-        draft.user.profileUri = newUri;
+        draft.isLogin = true;
+        draft.user = action.payload;
       });
 
-    case 'UPDATE_TEAMINFO':
+    case 'UPDATE_PROFILE_IMG':
       return produce(state, (draft) => {
-        const newTeamInfo = action.teaminfo;
-        draft.user.teams = newTeamInfo;
+        draft.user.profileUri = action.payload;
+      });
+
+    case 'UPDATE_TEAM':
+      return produce(state, (draft) => {
+        draft.user.teams = action.payload;
       });
 
     case 'LOGOUT': {
-      const user = initialUser;
-      user.isLogin = false;
-      return {
-        ...user,
-      };
+      return produce(state, (draft) => {
+        draft = initUserInfo;
+        draft.isLogin = false;
+      });
     }
     default:
       return { ...state };

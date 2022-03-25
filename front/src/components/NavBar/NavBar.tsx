@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Logo from './Logo';
 import MenuList from './MenuList';
 import Hambergur from '../../asset/hamburger.svg';
+import Button from 'react-bootstrap/Button';
 
 export default function NavBar() {
   const [active, setActive] = useState(false);
